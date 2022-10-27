@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class BILPAKK04_RELEASE_API UPauseState : public UGameModeStateBase
+class BILPAKK04_API UPauseState : public UGameModeStateBase
 {
 	GENERATED_BODY()
 

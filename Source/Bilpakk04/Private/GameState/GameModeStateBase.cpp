@@ -11,7 +11,7 @@ void UGameModeStateBase::OnEnterState(AActor* StateOwner)
 
 	if (!GameMode)
 	{
-		GameMode = Cast<ABilpakk04_ReleaseGameModeBase>(StateOwner);
+		GameMode = Cast<ABilpakk04GameModeBase>(StateOwner);
 	}
 	if (!Pawn)
 	{

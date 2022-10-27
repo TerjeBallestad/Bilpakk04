@@ -9,7 +9,7 @@
 #include "HandController.generated.h"
 
 UCLASS()
-class BILPAKK04_RELEASE_API AHandController : public AActor
+class BILPAKK04_API AHandController : public AActor
 {
 	GENERATED_BODY()
 

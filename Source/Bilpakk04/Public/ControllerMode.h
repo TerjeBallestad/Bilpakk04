@@ -13,7 +13,7 @@
  * 
  */
 UCLASS(Blueprintable)
-class BILPAKK04_RELEASE_API UControllerMode : public UObject
+class BILPAKK04_API UControllerMode : public UObject
 {
 	GENERATED_BODY()
 

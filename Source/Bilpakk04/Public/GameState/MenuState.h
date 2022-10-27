@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class BILPAKK04_RELEASE_API UMenuState : public UGameModeStateBase
+class BILPAKK04_API UMenuState : public UGameModeStateBase
 {
 	GENERATED_BODY()
 

@@ -21,7 +21,7 @@ enum class EGripState : uint8
 };
 
 UCLASS()
-class BILPAKK04_RELEASE_API AHandPackageStacker : public AHandController
+class BILPAKK04_API AHandPackageStacker : public AHandController
 {
 	GENERATED_BODY()
 

@@ -11,7 +11,7 @@
  * 
  */
 UCLASS()
-class BILPAKK04_RELEASE_API AHandUI : public AHandController
+class BILPAKK04_API AHandUI : public AHandController
 {
 	GENERATED_BODY()
 

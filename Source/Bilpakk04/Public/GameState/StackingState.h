@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class BILPAKK04_RELEASE_API UStackingState : public UGameModeStateBase
+class BILPAKK04_API UStackingState : public UGameModeStateBase
 {
 	GENERATED_BODY()
 

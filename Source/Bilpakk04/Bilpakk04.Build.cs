@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class Bilpakk04_Release : ModuleRules
+public class Bilpakk04 : ModuleRules
 {
-	public Bilpakk04_Release(ReadOnlyTargetRules Target) : base(Target)
+	public Bilpakk04(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	

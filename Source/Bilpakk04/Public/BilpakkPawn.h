@@ -12,7 +12,7 @@
 
 
 UCLASS()
-class BILPAKK04_RELEASE_API ABilpakkPawn : public APawn
+class BILPAKK04_API ABilpakkPawn : public APawn
 {
 	GENERATED_BODY()
 

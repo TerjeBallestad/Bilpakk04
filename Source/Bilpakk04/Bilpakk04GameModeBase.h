@@ -5,18 +5,18 @@
 #include "CoreMinimal.h"
 #include "StateManager.h"
 #include "GameFramework/GameModeBase.h"
-#include "Bilpakk04_ReleaseGameModeBase.generated.h"
+#include "Bilpakk04GameModeBase.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class BILPAKK04_RELEASE_API ABilpakk04_ReleaseGameModeBase : public AGameModeBase
+class BILPAKK04_API ABilpakk04GameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 
 public:
-	ABilpakk04_ReleaseGameModeBase();
+	ABilpakk04GameModeBase();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UStateManager* StateManager;
