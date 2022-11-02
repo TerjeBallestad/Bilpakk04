@@ -5,19 +5,32 @@
 #include "CoreMinimal.h"
 #include "StateManager.h"
 #include "GameFramework/GameModeBase.h"
+#include "GameState/GameStateBilpakk.h"
+#include "GameState/GameStateInterface.h"
 #include "Bilpakk04GameModeBase.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class BILPAKK04_API ABilpakk04GameModeBase : public AGameModeBase
+class BILPAKK04_API ABilpakk04GameModeBase : public AGameModeBase, public IGameStateInterface
 {
 	GENERATED_BODY()
 
 public:
 	ABilpakk04GameModeBase();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UStateManager* StateManager;
+	virtual void BeginPlay() override;
+	void BindInput();
+	void PauseGame();
+	virtual FPauseSignature* GetPauseDelegate() override;
+
+protected:
+
+	UPROPERTY()
+	AGameStateBilpakk* BilpakkGameState;
+
+private:
+	FPauseSignature PauseDelegate;
 };
+

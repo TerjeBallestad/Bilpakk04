@@ -9,17 +9,26 @@ void UGameModeStateBase::OnEnterState(AActor* StateOwner)
 {
 	Super::OnEnterState(StateOwner);
 
+	if (!GameState)
+	{
+		GameState = Cast<AGameStateBilpakk>(StateOwner);
+	}
 	if (!GameMode)
 	{
-		GameMode = Cast<ABilpakk04GameModeBase>(StateOwner);
+		GameMode = Cast<ABilpakk04GameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
 	}
-	if (!Pawn)
+	if (GameMode)
 	{
-		Pawn = Cast<ABilpakkPawn>(UGameplayStatics::GetPlayerController(this, 0)->GetPawn());
+		GameMode->GetPauseDelegate()->AddUObject(this, &UGameModeStateBase::PressPause);
 	}
 }
 
 void UGameModeStateBase::OnExitState()
 {
 	Super::OnExitState();
+	GameMode->GetPauseDelegate()->RemoveAll(this);
+}
+
+void UGameModeStateBase::PressPause()
+{
 }

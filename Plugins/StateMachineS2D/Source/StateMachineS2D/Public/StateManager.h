@@ -37,10 +37,10 @@ public:
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "State Machine Debug", meta = (ClampMin = "0", ClampMax = "10", UIMin = "0", UIMax = "10"))
 	int32 StateHistoryLength;
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UStateBase* CurrentState = nullptr;
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere)
 	TMap<FString, UStateBase*> StateMap;
 
 	UFUNCTION(BlueprintCallable, Category = "State Machine")

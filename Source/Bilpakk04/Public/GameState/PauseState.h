@@ -16,4 +16,7 @@ class BILPAKK04_API UPauseState : public UGameModeStateBase
 
 	virtual void OnEnterState(AActor* StateOwner) override;
 	virtual void OnExitState() override;
+
+protected:
+	virtual void PressPause() override;
 };

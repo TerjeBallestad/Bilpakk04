@@ -3,7 +3,37 @@
 
 #include "Bilpakk04GameModeBase.h"
 
+#include "GameState/GameStateBilpakk.h"
+
 ABilpakk04GameModeBase::ABilpakk04GameModeBase()
 {
-	StateManager = CreateDefaultSubobject<UStateManager>(TEXT("Game State Manager"));
+}
+
+void ABilpakk04GameModeBase::BeginPlay()
+{
+	Super::BeginPlay();
+
+	BindInput();
+	BilpakkGameState = GetGameState<AGameStateBilpakk>();
+}
+
+void ABilpakk04GameModeBase::BindInput()
+{
+	InputComponent = NewObject<UInputComponent>(this);
+	InputComponent->RegisterComponent();
+
+	if (!InputComponent) return;
+	InputComponent->BindAction("Pause", EInputEvent::IE_Pressed, this, &ABilpakk04GameModeBase::PauseGame);
+
+	EnableInput(GetWorld()->GetFirstPlayerController());
+}
+
+void ABilpakk04GameModeBase::PauseGame()
+{
+	PauseDelegate.Broadcast();
+}
+
+FPauseSignature* ABilpakk04GameModeBase::GetPauseDelegate()
+{
+	return &PauseDelegate;
 }

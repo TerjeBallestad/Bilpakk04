@@ -12,3 +12,8 @@ void UStackingState::OnExitState()
 {
 	Super::OnExitState();
 }
+
+void UStackingState::PressPause()
+{
+	GameState->StateManager->SwitchStateByKey("pause");
+}

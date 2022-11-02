@@ -12,3 +12,8 @@ void UPauseState::OnExitState()
 {
 	Super::OnExitState();
 }
+
+void UPauseState::PressPause()
+{
+	GameState->StateManager->SwitchStateByKey("stacking");
+}

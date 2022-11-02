@@ -3,3 +3,13 @@
 
 #include "GameState/GameStateBilpakk.h"
 
+AGameStateBilpakk::AGameStateBilpakk()
+{
+	StateManager = CreateDefaultSubobject<UStateManager>(TEXT("Game State Manager"));
+}
+
+void AGameStateBilpakk::BeginPlay()
+{
+	Super::BeginPlay();
+	StateManager->InitStateManager();
+}

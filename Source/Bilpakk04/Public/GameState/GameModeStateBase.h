@@ -22,11 +22,17 @@ public:
 	ABilpakk04GameModeBase* GameMode = nullptr;
 
 	UPROPERTY(BlueprintReadOnly)
+	AGameStateBilpakk* GameState = nullptr;
+
+	UPROPERTY(BlueprintReadOnly)
 	ABilpakkPawn* Pawn = nullptr;
 
 	
 	
 	virtual void OnEnterState(AActor* StateOwner) override;
 	virtual void OnExitState() override;
+
+protected:
+	virtual void PressPause();
 	
 };
