@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameStateInterface.h"
 #include "StateManager.h"
 #include "GameFramework/GameStateBase.h"
 #include "GameStateBilpakk.generated.h"
@@ -23,5 +22,22 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	UStateManager* StateManager;
+
+	// Points
+	UFUNCTION(BlueprintPure, meta = (WorldContext = "WorldContextObject"))
+	static int32 GetPoints(const UObject* WorldContextObject);
+
+	UFUNCTION()
+	void SetPoints(int32 Amount);
+
+	UFUNCTION()
+	void SetBonusPoints(int32 Amount);
+
+	UFUNCTION()
+	void AddBonusPoints(int32 Amount);
+
+private:
+	int32 Points;
+	int32 BonusPoints;
 };
 

@@ -6,6 +6,8 @@
 void UPauseState::OnEnterState(AActor* StateOwner)
 {
 	Super::OnEnterState(StateOwner);
+	
+	Pawn->SetControllerModeUI();
 }
 
 void UPauseState::OnExitState()

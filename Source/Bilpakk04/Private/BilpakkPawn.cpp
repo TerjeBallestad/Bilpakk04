@@ -52,7 +52,6 @@ void ABilpakkPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		PlayerInputComponent->BindAction(TEXT("LeftTrigger"), IE_Released, this, &ABilpakkPawn::TriggerReleaseLeft);
 		PlayerInputComponent->BindAction(TEXT("RightTrigger"), IE_Pressed, this, &ABilpakkPawn::TriggerRight);
 		PlayerInputComponent->BindAction(TEXT("RightTrigger"), IE_Released, this, &ABilpakkPawn::TriggerReleaseRight);
-		PlayerInputComponent->BindAction(TEXT("Pause"), IE_Released, this, &ABilpakkPawn::PauseGame);
 	}
 
 }
@@ -69,10 +68,5 @@ void ABilpakkPawn::SetControllerModePackageStacker()
 	CurrentControllerMode->SetHandsHiddenInGame(true);
 	ControllerModePackageStacker->SetHandsHiddenInGame(false);
 	CurrentControllerMode = ControllerModePackageStacker;
-}
-
-void ABilpakkPawn::PauseGame_Implementation()
-{
-	
 }
 

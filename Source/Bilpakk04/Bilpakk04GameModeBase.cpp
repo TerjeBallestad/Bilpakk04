@@ -3,10 +3,13 @@
 
 #include "Bilpakk04GameModeBase.h"
 
+#include "Components/AudioComponent.h"
 #include "GameState/GameStateBilpakk.h"
 
 ABilpakk04GameModeBase::ABilpakk04GameModeBase()
 {
+	AudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("Audio Component"));
+	AudioComponent->SetupAttachment(GetRootComponent());
 }
 
 void ABilpakk04GameModeBase::BeginPlay()

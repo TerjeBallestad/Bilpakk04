@@ -6,11 +6,15 @@
 void UStackingState::OnEnterState(AActor* StateOwner)
 {
 	Super::OnEnterState(StateOwner);
+	
+	Pawn->SetControllerModePackageStacker();
+	GameMode->AudioComponent->SetPaused(false);
 }
 
 void UStackingState::OnExitState()
 {
 	Super::OnExitState();
+	GameMode->AudioComponent->SetPaused(true);
 }
 
 void UStackingState::PressPause()

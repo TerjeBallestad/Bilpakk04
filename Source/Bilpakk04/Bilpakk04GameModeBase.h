@@ -25,6 +25,9 @@ public:
 	void PauseGame();
 	virtual FPauseSignature* GetPauseDelegate() override;
 
+	UPROPERTY(BlueprintReadOnly)
+	UAudioComponent* AudioComponent;
+
 protected:
 
 	UPROPERTY()

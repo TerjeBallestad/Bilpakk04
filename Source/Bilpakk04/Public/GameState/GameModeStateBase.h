@@ -26,8 +26,6 @@ public:
 
 	UPROPERTY(BlueprintReadOnly)
 	ABilpakkPawn* Pawn = nullptr;
-
-	
 	
 	virtual void OnEnterState(AActor* StateOwner) override;
 	virtual void OnExitState() override;

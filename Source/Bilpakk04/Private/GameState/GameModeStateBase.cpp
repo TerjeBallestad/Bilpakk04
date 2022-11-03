@@ -13,6 +13,10 @@ void UGameModeStateBase::OnEnterState(AActor* StateOwner)
 	{
 		GameState = Cast<AGameStateBilpakk>(StateOwner);
 	}
+	if (!Pawn)
+	{
+		Pawn = GetWorld() != nullptr ? GetWorld()->GetFirstPlayerController()->GetPawn<ABilpakkPawn>() : nullptr;
+	}
 	if (!GameMode)
 	{
 		GameMode = Cast<ABilpakk04GameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));

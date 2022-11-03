@@ -30,9 +30,6 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	UCameraComponent* VRCamera;
 
-	UFUNCTION(BlueprintNativeEvent)
-	void PauseGame();
-
 	UFUNCTION(BlueprintCallable)
 	void SetControllerModeUI();
 
