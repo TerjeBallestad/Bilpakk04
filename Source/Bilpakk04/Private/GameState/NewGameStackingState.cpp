@@ -11,8 +11,11 @@ void UNewGameStackingState::OnEnterState(AActor* StateOwner)
 	GameState->SetBonusPoints(0);
 
 	// Load level data
-	// GameMode->AudioComponent->SetSound()
-	// GameMode->AudioComponent->Play();
+	if (GameMusic)
+	{
+		GameMode->AudioComponent->SetSound(GameMusic);
+		GameMode->AudioComponent->Play();
+	}
 	GameState->StateManager->SwitchStateByKey("stacking");
 }
 

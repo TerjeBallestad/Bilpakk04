@@ -16,5 +16,8 @@ class BILPAKK04_API UNewGameStackingState : public UGameModeStateBase
 
 	virtual void OnEnterState(AActor* StateOwner) override;
 	virtual void OnExitState() override;
+
+	UPROPERTY(EditAnywhere)
+	USoundCue* GameMusic = nullptr;
 	
 };

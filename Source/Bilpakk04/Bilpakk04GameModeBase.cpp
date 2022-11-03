@@ -9,7 +9,8 @@
 ABilpakk04GameModeBase::ABilpakk04GameModeBase()
 {
 	AudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("Audio Component"));
-	AudioComponent->SetupAttachment(GetRootComponent());
+	SetRootComponent(AudioComponent);
+	// AudioComponent->SetupAttachment(GetRootComponent());
 }
 
 void ABilpakk04GameModeBase::BeginPlay()
