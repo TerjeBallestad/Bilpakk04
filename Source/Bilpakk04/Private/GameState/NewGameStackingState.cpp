@@ -10,7 +10,25 @@ void UNewGameStackingState::OnEnterState(AActor* StateOwner)
 	GameState->SetPoints(0);
 	GameState->SetBonusPoints(0);
 
-	// Load level data
+	FName Row(GameState->RowName);
+	const UDataTable *LevelDataTable = GameState->LevelDataTable;
+
+	if(!LevelDataTable)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No data table in Game State"))
+		return;
+	};
+	
+	if(Row == "")
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No Row Name in Start Game"))
+		Row = LevelDataTable->GetRowNames()[0];
+	}
+	UE_LOG(LogTemp, Warning, TEXT("Starting row: %s"), *Row.ToString());
+	
+	GameState->LevelData = *LevelDataTable->FindRow<FBilpakkLevelData>(Row, "");
+	GameState->RowName = Row.ToString();
+	
 	if (GameMusic)
 	{
 		GameMode->AudioComponent->SetSound(GameMusic);

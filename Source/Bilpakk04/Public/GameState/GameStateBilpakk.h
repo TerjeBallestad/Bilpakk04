@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "BilpakkLevelData.h"
 #include "StateMachine/StateManager.h"
 #include "GameFramework/GameStateBase.h"
 #include "GameStateBilpakk.generated.h"
@@ -17,12 +18,25 @@ class BILPAKK04_API AGameStateBilpakk : public AGameStateBase
 
 
 public:
+	
 	AGameStateBilpakk();
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere)
+	UDataTable* LevelDataTable;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FString RowName;
+
+	UPROPERTY(EditAnywhere)
 	UStateManager* StateManager;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	FBilpakkLevelData LevelData;
+
+	UFUNCTION(BlueprintPure, meta = (WorldContext = "WorldContextObject"))
+	static FBilpakkLevelData GetLevelData(const UObject* WorldContextObject);
+	
 	// Points
 	UFUNCTION(BlueprintPure, meta = (WorldContext = "WorldContextObject"))
 	static int32 GetPoints(const UObject* WorldContextObject);

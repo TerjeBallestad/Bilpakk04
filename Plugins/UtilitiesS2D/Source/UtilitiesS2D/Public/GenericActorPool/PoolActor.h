@@ -15,7 +15,8 @@ class UTILITIESS2D_API APoolActor : public AActor
 	
 public:
 	APoolActor();
-	
+
+	UFUNCTION(BlueprintCallable)
 	void Release(bool bForce = false);
 	void Activate(bool bForce = false);
 	virtual void LifeSpanExpired() override { Release(); }

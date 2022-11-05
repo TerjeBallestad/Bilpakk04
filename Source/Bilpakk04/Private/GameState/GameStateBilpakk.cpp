@@ -14,6 +14,18 @@ void AGameStateBilpakk::BeginPlay()
 	StateManager->InitStateManager();
 }
 
+FBilpakkLevelData AGameStateBilpakk::GetLevelData(const UObject* WorldContextObject)
+{
+	if((!GEngine) && (!WorldContextObject)) return FBilpakkLevelData();
+
+	AGameStateBilpakk* State = Cast<AGameStateBilpakk>(GEngine->
+		GetWorldFromContextObjectChecked(WorldContextObject)->GetAuthGameMode()->GameState);
+	if(State)
+		return State->LevelData;
+	
+	return FBilpakkLevelData();
+}
+
 int32 AGameStateBilpakk::GetPoints(const UObject* WorldContextObject)
 {
 	if((!GEngine) && (!WorldContextObject)) return -1;
