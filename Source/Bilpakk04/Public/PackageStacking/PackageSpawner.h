@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "GenericActorPool/GenericActorPoolComponent.h"
 #include "PackageSpawner.generated.h"
 
 UCLASS()
@@ -17,6 +18,7 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-public:	
-
+public:
+	UPROPERTY(EditDefaultsOnly)
+	UGenericActorPoolComponent* PackagePool;
 };

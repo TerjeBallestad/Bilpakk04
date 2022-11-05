@@ -7,6 +7,8 @@ APackageSpawner::APackageSpawner()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
+	PackagePool = CreateDefaultSubobject<UGenericActorPoolComponent>(TEXT("PackagePool"));
+
 }
 
 void APackageSpawner::BeginPlay()
