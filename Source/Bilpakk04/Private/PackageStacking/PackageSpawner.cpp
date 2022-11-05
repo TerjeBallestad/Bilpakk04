@@ -78,11 +78,18 @@ AStackablePackage* APackageSpawner::GetNextPackage()
 	const FActorSpawnParameters PackageSpawnParameters;
 
 	AStackablePackage* Package = Cast<AStackablePackage>(PackagePool->Spawn(PackageClass, SpawnLocation, PackageSpawnParameters));
-	// Package data is removed from the queue once the package is placed in the playfield
 	Package->Setup(SpawnQueue[0]);
-	Package->MeshComponent->SetMaterial(0, SpawnQueue[0].Material);
+	Package->GetPlacePackageDelegate()->AddUObject(this, &APackageSpawner::RemoveFirstPackageFromQueue);
 
 	return Package;
+}
+
+void APackageSpawner::RemoveFirstPackageFromQueue()
+{
+	if(SpawnQueue.Num() > 0)
+	{
+		SpawnQueue.RemoveAt(0);
+	}
 }
 
 void APackageSpawner::ShuffleArray(TArray<FPackageParameters>& Array)

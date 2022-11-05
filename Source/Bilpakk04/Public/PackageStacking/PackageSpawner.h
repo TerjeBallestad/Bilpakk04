@@ -39,7 +39,8 @@ private:
 
 	UFUNCTION(BlueprintCallable)
 	AStackablePackage* GetNextPackage();
-	
+	void RemoveFirstPackageFromQueue();
+
 	void ShuffleArray(TArray<FPackageParameters>& Array);
 
 	UPROPERTY(VisibleAnywhere)

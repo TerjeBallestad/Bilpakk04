@@ -8,9 +8,8 @@
 #include "GenericActorPool/PoolActor.h"
 #include "StackablePackage.generated.h"
 
-/**
- * 
- */
+DECLARE_MULTICAST_DELEGATE(FPackagePlacedSignature)
+
 UCLASS()
 class BILPAKK04_API AStackablePackage : public APoolActor
 {
@@ -21,7 +20,7 @@ public:
 
 	UPROPERTY()
 	bool bIsGripped = false;
-	
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UStaticMeshComponent* MeshComponent;
 
@@ -29,14 +28,21 @@ public:
 	FPackageParameters PackageParameters;
 
 	UPROPERTY(EditDefaultsOnly)
-	UMaterial *HoloMaterial;
+	UMaterial* HoloMaterial;
 
 	UPROPERTY(EditDefaultsOnly)
-	UMaterial *RedHoloMaterial;
+	UMaterial* RedHoloMaterial;
 
 	UFUNCTION(BlueprintCallable)
 	void Setup(FPackageParameters NewPackage);
-	
+
+	virtual void OnReleased() override;
+
+	UFUNCTION()
+	void OnStackPackage();
+
 	void StopInteract();
 	void StartInteract(AHandController* HandController);
+	FPackagePlacedSignature* GetPlacePackageDelegate();
+	FPackagePlacedSignature PlacedPackageDelegate;
 };
