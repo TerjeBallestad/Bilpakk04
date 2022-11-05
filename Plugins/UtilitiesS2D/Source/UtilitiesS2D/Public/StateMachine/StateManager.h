@@ -9,7 +9,7 @@
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class STATEMACHINES2D_API UStateManager : public UActorComponent
+class UTILITIESS2D_API UStateManager : public UActorComponent
 {
 	GENERATED_BODY()
 

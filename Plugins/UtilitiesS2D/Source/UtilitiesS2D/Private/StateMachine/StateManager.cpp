@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "StateManager.h"
+#include "StateMachine/StateManager.h"
 
 UStateManager::UStateManager()
 {
@@ -48,7 +48,7 @@ void UStateManager::SwitchStateByKey(FString StateKey)
 
 	if (!NewState->IsValidLowLevel())
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, this->GetOwner()->GetName() + "'s state switch failed. " + "Invalid state!");
+		GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, this->GetOwner()->GetName() + "'s state switch failed. " + "Invalid state!" + StateKey);
 		return;
 	}
 	

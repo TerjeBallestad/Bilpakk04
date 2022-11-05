@@ -10,7 +10,7 @@
  * 
  */
 UCLASS(Blueprintable)
-class STATEMACHINES2D_API UStateBase : public UObject
+class UTILITIESS2D_API UStateBase : public UObject
 {
 	GENERATED_BODY()
 

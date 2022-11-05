@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Modules/ModuleManager.h"
 
-class FStateMachineS2DModule : public IModuleInterface
+class FUtilitiesS2DModule : public IModuleInterface
 {
 public:
 

@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class StateMachineS2D : ModuleRules
+public class UtilitiesS2D : ModuleRules
 {
-	public StateMachineS2D(ReadOnlyTargetRules Target) : base(Target)
+	public UtilitiesS2D(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		

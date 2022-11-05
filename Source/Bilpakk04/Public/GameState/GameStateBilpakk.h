@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "StateManager.h"
+#include "StateMachine/StateManager.h"
 #include "GameFramework/GameStateBase.h"
 #include "GameStateBilpakk.generated.h"
 

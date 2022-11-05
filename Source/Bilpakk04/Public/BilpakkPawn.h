@@ -7,7 +7,7 @@
 #include "HandController.h"
 #include "GameFramework/Pawn.h"
 #include "ControllerMode.h"
-#include "StateManager.h"
+#include "StateMachine/StateManager.h"
 #include "BilpakkPawn.generated.h"
 
 

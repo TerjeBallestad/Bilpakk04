@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "BilpakkPawn.h"
-#include "StateBase.h"
+#include "StateMachine/StateBase.h"
 #include "Bilpakk04/Bilpakk04GameModeBase.h"
 #include "GameModeStateBase.generated.h"
 

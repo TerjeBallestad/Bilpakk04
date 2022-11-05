@@ -11,7 +11,8 @@
 			"AdditionalDependencies": [
 				"Engine",
 				"CoreUObject",
-				"StateMachineS2D"
+				"UtilitiesS2D"
+				
 			]
 		}
 	],

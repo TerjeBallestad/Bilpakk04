@@ -2,21 +2,21 @@
 	"FileVersion": 3,
 	"Version": 1,
 	"VersionName": "1.0",
-	"FriendlyName": "StateMachineS2D",
-	"Description": "Finite State Machine",
+	"FriendlyName": "UtilitiesS2D",
+	"Description": "General utility classes used for making video games",
 	"Category": "Other",
 	"CreatedBy": "Terje Ballestad",
 	"CreatedByURL": "",
 	"DocsURL": "",
 	"MarketplaceURL": "",
 	"SupportURL": "",
-	"CanContainContent": false,
+	"CanContainContent": true,
 	"IsBetaVersion": false,
 	"IsExperimentalVersion": false,
 	"Installed": false,
 	"Modules": [
 		{
-			"Name": "StateMachineS2D",
+			"Name": "UtilitiesS2D",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
 		}
