@@ -31,7 +31,7 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
-	bool PlacePackage(const AStackablePackage* ActivePackage);
+	bool TryPlacePackage(AStackablePackage* ActivePackage);
 	void StartUpdatingPreview(UMaterialInstance* Material, UStaticMesh* Mesh);
 	void StopUpdatingPreview();
 	bool UpdatePreview(const AStackablePackage* ActivePackage, FTransform& InOutPreviewTransform);

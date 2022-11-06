@@ -71,29 +71,14 @@ void AHandPackageStacker::GripReleased()
 	SetGripState(EGripState::Open);
 
 	if (!PackageInGrip) return;
-
 	if (GrippablePlayfield)
 	{
-		if (!GrippablePlayfield->PlacePackage(PackageInGrip))
+		if (GrippablePlayfield->TryPlacePackage(PackageInGrip))
 		{
-			// Invalid placement inside playfield
-			// PackageInGrip->PackageSpawner->SpawnQueue.Insert(PackageInGrip->PackageParameters, 0);
-			PackageInGrip->Release();
+			PackageInGrip->GetPackageStackedDelegate()->Broadcast();
 		}
-		else
-		{
-
-		}
-
 	}
-	else
-	{
-		// Invalid placement outside playfield
-		// PackageInGrip->PackageSpawner->SpawnQueue.Insert(PackageInGrip->PackageParameters, 0);
-		PackageInGrip->Release();
-	}
-	
-	PackageInGrip->StopInteract();
+	PackageInGrip->Release();
 	PackageInGrip = nullptr;
 }
 

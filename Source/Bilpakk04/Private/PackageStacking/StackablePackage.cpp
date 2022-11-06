@@ -18,15 +18,16 @@ void AStackablePackage::Setup(FPackageParameters NewPackage)
 	MeshComponent->SetStaticMesh(NewPackage.Mesh);
 }
 
-void AStackablePackage::OnReleased()
+void AStackablePackage::OnReleased() 
 {
-	Super::OnReleased();
-	PlacedPackageDelegate.RemoveAll(this);
-}
-
-void AStackablePackage::OnStackPackage() const
-{
-	PlacedPackageDelegate.Broadcast();
+	DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+	bIsGripped = false;
+	UE_LOG(LogTemp, Warning, TEXT("Released delegate is bound %s"), PackageReleasedDelegate.IsBound() ? TEXT("True") : TEXT("False"));
+	UE_LOG(LogTemp, Warning, TEXT("Package stacked delegate is bound %s"), PackageStackedDelegate.IsBound() ? TEXT("True") : TEXT("False"));
+	
+	PackageReleasedDelegate.Broadcast();
+	PackageStackedDelegate.Clear();
+	PackageReleasedDelegate.Clear();
 }
 
 void AStackablePackage::StartInteract(AHandController* HandController)
@@ -38,14 +39,12 @@ void AStackablePackage::StartInteract(AHandController* HandController)
 	UE_LOG(LogTemp, Warning, TEXT("Being gripped by %s "), *HandController->GetName());
 }
 
-void AStackablePackage::StopInteract()
+FPackagePlacedSignature* AStackablePackage::GetPackageStackedDelegate()
 {
-	DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
-	bIsGripped = false;
-	Release();
+	return &PackageStackedDelegate;
 }
 
-FPackagePlacedSignature* AStackablePackage::GetPlacePackageDelegate()
+FPackagePlacedSignature* AStackablePackage::GetPackageReleasedDelegate()
 {
-	return &PlacedPackageDelegate;
+	return &PackageReleasedDelegate;
 }

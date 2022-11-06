@@ -4,6 +4,7 @@
 #include "PackageStacking/PackageSpawner.h"
 
 #include "GameState/GameStateBilpakk.h"
+#include "Kismet/GameplayStatics.h"
 
 APackageSpawner::APackageSpawner()
 {
@@ -15,6 +16,8 @@ APackageSpawner::APackageSpawner()
 void APackageSpawner::BeginPlay()
 {
 	Super::BeginPlay();
+
+	Cast<AGameStateBilpakk>(UGameplayStatics::GetGameState(GetWorld()))->PackageSpawner = this;
 }
 
 void APackageSpawner::Setup()
@@ -65,6 +68,18 @@ int32 APackageSpawner::GetRemainingPackageAmount(UObject* WorldContextObject)
 	return 32;
 }
 
+void APackageSpawner::SpawnNextPackageWithDelay()
+{
+	// if package is spawned immediately, the released/stacked delegates will be cleared right after they are set.
+	FTimerHandle Handle;
+	GetWorld ()->GetTimerManager().SetTimer(Handle, this, &APackageSpawner::SpawnNextPackage, 0.3, false);
+}
+
+void APackageSpawner::SpawnNextPackage()
+{
+	GetNextPackage();
+}
+
 AStackablePackage* APackageSpawner::GetNextPackage()
 {
 	if (SpawnQueue.Num() < 1)
@@ -79,7 +94,8 @@ AStackablePackage* APackageSpawner::GetNextPackage()
 
 	AStackablePackage* Package = Cast<AStackablePackage>(PackagePool->Spawn(PackageClass, SpawnLocation, PackageSpawnParameters));
 	Package->Setup(SpawnQueue[0]);
-	Package->GetPlacePackageDelegate()->AddUObject(this, &APackageSpawner::RemoveFirstPackageFromQueue);
+	Package->GetPackageStackedDelegate()->AddUObject(this, &APackageSpawner::RemoveFirstPackageFromQueue);
+	Package->GetPackageReleasedDelegate()->AddUObject(this, &APackageSpawner::SpawnNextPackageWithDelay);
 
 	return Package;
 }
@@ -90,7 +106,6 @@ void APackageSpawner::RemoveFirstPackageFromQueue()
 	{
 		SpawnQueue.RemoveAt(0);
 	}
-	GetNextPackage();
 }
 
 void APackageSpawner::ShuffleArray(TArray<FPackageParameters>& Array) const

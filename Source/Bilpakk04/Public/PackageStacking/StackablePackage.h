@@ -9,6 +9,7 @@
 #include "StackablePackage.generated.h"
 
 DECLARE_MULTICAST_DELEGATE(FPackagePlacedSignature)
+DECLARE_MULTICAST_DELEGATE(FPackageReleasedSignature)
 
 UCLASS()
 class BILPAKK04_API AStackablePackage : public APoolActor
@@ -38,9 +39,9 @@ public:
 
 	virtual void OnReleased() override;
 
-	void OnStackPackage() const;
-	void StopInteract();
 	void StartInteract(AHandController* HandController);
-	FPackagePlacedSignature* GetPlacePackageDelegate();
-	FPackagePlacedSignature PlacedPackageDelegate;
+	FPackagePlacedSignature* GetPackageStackedDelegate();
+	FPackagePlacedSignature PackageStackedDelegate;
+	FPackagePlacedSignature* GetPackageReleasedDelegate();
+	FPackagePlacedSignature PackageReleasedDelegate;
 };

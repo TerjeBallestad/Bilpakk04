@@ -50,6 +50,13 @@ public:
 	UFUNCTION()
 	void AddBonusPoints(int32 Amount);
 
+	// Gameplay actor references
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	class APackageSpawner* PackageSpawner;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	class APlayfieldContainer* PlayfieldContainer;
+
 private:
 	int32 Points;
 	int32 BonusPoints;

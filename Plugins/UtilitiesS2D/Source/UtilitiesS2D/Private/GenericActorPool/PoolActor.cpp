@@ -9,7 +9,7 @@ APoolActor::APoolActor()
 
 }
 
-void APoolActor::Release(const bool bForce)
+void APoolActor::Release(bool bForce)
 {
 	if (!bActivated && !bForce) return;
 	SetActorTickEnabled(false);

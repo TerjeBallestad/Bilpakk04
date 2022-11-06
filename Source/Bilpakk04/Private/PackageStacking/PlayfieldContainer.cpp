@@ -5,7 +5,6 @@
 
 #include "GameState/GameStateBilpakk.h"
 #include "Kismet/GameplayStatics.h"
-#include "Kismet/KismetMathLibrary.h"
 
 APlayfieldContainer::APlayfieldContainer()
 {
@@ -37,6 +36,7 @@ void APlayfieldContainer::BeginPlay()
 		PreviewActor->SetRootComponent(PreviewMesh);
 	}
 	GameState = Cast<AGameStateBilpakk>(UGameplayStatics::GetGameState(GetWorld()));
+	GameState->PlayfieldContainer = this;
 	
 }
 
@@ -52,9 +52,10 @@ void APlayfieldContainer::Setup() const
 	PointsCalculator->Setup(Colors, Grid, Data.Doors);
 }
 
-bool APlayfieldContainer::PlacePackage(const AStackablePackage* ActivePackage)
+bool APlayfieldContainer::TryPlacePackage(AStackablePackage* ActivePackage)
 {
 	UStaticMeshComponent* NewPackage = StaticMeshPool->GetPooledActor();
+	
 	if (!NewPackage || !PreviewMesh->IsVisible()) return false;
 
 	NewPackage->AttachToComponent(CarModel, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
@@ -67,12 +68,13 @@ bool APlayfieldContainer::PlacePackage(const AStackablePackage* ActivePackage)
 	Points = PointsCalculator->CalculateEndGamePoints();
 	Points.Diff += Bonus;
 	Points.Bonus = Bonus;
+	
 	if (Points.Diff == abs(Points.Negative))
 	{
 		Points.Diff = 0;
 		Points.Negative = 0;
 	}
-	// TODO
+	
 	GameState->SetPoints(Points.Total);
 	FloatingTextWidget->SetWorldLocation(
 		PreviewMesh->Bounds.Origin + FVector::UpVector * PreviewMesh->Bounds.BoxExtent.Z);
@@ -84,7 +86,6 @@ bool APlayfieldContainer::PlacePackage(const AStackablePackage* ActivePackage)
 	// FloatingTextWidget->SetWorldRotation(WidgetRotation);
 	// NegativeFloatingTextWidget->SetWorldRotation(WidgetRotation);
 	OnPointsAddedDelegate.Broadcast();
-	ActivePackage->OnStackPackage();
 	UE_LOG(LogTemp, Warning, TEXT("Returned Points: %d, and %d negative points, %d bonus, %d diff, %d from gamestate"), Points.Total, Points.Negative, Points.Bonus, Points.Diff, AGameStateBilpakk::GetPoints(GetWorld()));
 	PreviewMesh->SetVisibility(false);
 	return true;

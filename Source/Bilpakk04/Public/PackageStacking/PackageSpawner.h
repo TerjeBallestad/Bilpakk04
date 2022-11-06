@@ -32,6 +32,8 @@ public:
 
 	UFUNCTION(BlueprintPure, meta = (WorldContext = "WorldContextObject"))
 	static int32 GetRemainingPackageAmount(UObject* WorldContextObject);
+	void SpawnNextPackageWithDelay();
+	void SpawnNextPackage();
 
 private:
 	UPROPERTY(EditDefaultsOnly)

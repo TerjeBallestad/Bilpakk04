@@ -3,6 +3,8 @@
 
 #include "GameState/NewGameStackingState.h"
 
+#include "PackageStacking/PackageSpawner.h"
+
 void UNewGameStackingState::OnEnterState(AActor* StateOwner)
 {
 	Super::OnEnterState(StateOwner);
@@ -34,6 +36,11 @@ void UNewGameStackingState::OnEnterState(AActor* StateOwner)
 		GameMode->AudioComponent->SetSound(GameMusic);
 		GameMode->AudioComponent->Play();
 	}
+
+	GameState->PackageSpawner->Setup();
+	GameState->PlayfieldContainer->Setup();
+	// delay here
+	GameState->PackageSpawner->SpawnNextPackage();
 	GameState->StateManager->SwitchStateByKey("stacking");
 }
 
