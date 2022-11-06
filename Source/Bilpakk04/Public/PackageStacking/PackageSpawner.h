@@ -41,7 +41,7 @@ private:
 	AStackablePackage* GetNextPackage();
 	void RemoveFirstPackageFromQueue();
 
-	void ShuffleArray(TArray<FPackageParameters>& Array);
+	void ShuffleArray(TArray<FPackageParameters>& Array) const;
 
 	UPROPERTY(VisibleAnywhere)
 	TMap<EPackageType, UMaterialInstance*> Materials;

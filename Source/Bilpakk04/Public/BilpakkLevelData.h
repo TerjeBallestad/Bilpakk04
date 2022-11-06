@@ -121,6 +121,40 @@ struct FGridParameters
 	TArray<FGridRange> DefaultOccupiedGridPositions;
 };
 
+FORCEINLINE    bool operator==(const FGridRange &Lhs, const FGridRange& Rhs)
+{
+	return Lhs.Max == Rhs.Max && Lhs.Min == Rhs.Min;
+}
+
+USTRUCT(BlueprintType)
+struct FPackageChunks
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Points Calculator")
+	TArray<FGridRange> Chunks;
+
+	bool Contains(FIntVector Position);
+};
+
+USTRUCT(BlueprintType)
+struct FPoints
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Points Calculator")
+	int32 Total;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Points Calculator")
+	int32 Negative;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Points Calculator")
+	int32 Bonus;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Points Calculator")
+	int32 Diff;
+};
+
 USTRUCT(BlueprintType)
 struct FBilpakkLevelData : public FTableRowBase
 {

@@ -44,12 +44,6 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	USoundCue* GridTick;
 
-	/*UPROPERTY(EditDefaultsOnly)
-	USoundCue* PackagePlacement;
-
-	UPROPERTY(EditDefaultsOnly)
-	USoundCue* FinalPackagePlacement;*/
-
 	UPROPERTY(EditDefaultsOnly)
 	USoundCue* GridTickError;
 
