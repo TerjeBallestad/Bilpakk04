@@ -38,9 +38,7 @@ public:
 
 	virtual void OnReleased() override;
 
-	UFUNCTION()
-	void OnStackPackage();
-
+	void OnStackPackage() const;
 	void StopInteract();
 	void StartInteract(AHandController* HandController);
 	FPackagePlacedSignature* GetPlacePackageDelegate();

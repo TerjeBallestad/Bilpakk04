@@ -24,7 +24,7 @@ void AStackablePackage::OnReleased()
 	PlacedPackageDelegate.RemoveAll(this);
 }
 
-void AStackablePackage::OnStackPackage()
+void AStackablePackage::OnStackPackage() const
 {
 	PlacedPackageDelegate.Broadcast();
 }

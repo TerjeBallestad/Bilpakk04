@@ -10,6 +10,7 @@
 #include "StackablePackage.h"
 #include "Components/WidgetComponent.h"
 #include "GameFramework/Actor.h"
+#include "GameState/GameStateBilpakk.h"
 #include "PlayfieldContainer.generated.h"
 
 UDELEGATE()
@@ -23,15 +24,20 @@ class BILPAKK04_API APlayfieldContainer : public AActor
 public:
 	APlayfieldContainer();
 
+	UPROPERTY(BlueprintReadOnly)
+	AGameStateBilpakk* GameState;
+
 protected:
 	virtual void BeginPlay() override;
-	void Setup() const;
 
 public:
 	bool PlacePackage(const AStackablePackage* ActivePackage);
 	void StartUpdatingPreview(UMaterialInstance* Material, UStaticMesh* Mesh);
 	void StopUpdatingPreview();
 	bool UpdatePreview(const AStackablePackage* ActivePackage, FTransform& InOutPreviewTransform);
+
+	UFUNCTION(BlueprintCallable)
+	void Setup() const;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	FPoints Points;

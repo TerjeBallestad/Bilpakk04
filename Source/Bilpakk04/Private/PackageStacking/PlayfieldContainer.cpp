@@ -4,6 +4,7 @@
 #include "PackageStacking/PlayfieldContainer.h"
 
 #include "GameState/GameStateBilpakk.h"
+#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 
 APlayfieldContainer::APlayfieldContainer()
@@ -28,13 +29,15 @@ void APlayfieldContainer::BeginPlay()
 
 	PreviewActor = GetWorld()->SpawnActor<AActor>();
 	PreviewMesh = NewObject<UStaticMeshComponent>(PreviewActor);
-	if(PreviewMesh)
+	if (PreviewMesh)
 	{
 		PreviewMesh->RegisterComponent();
 		PreviewMesh->SetMobility(EComponentMobility::Movable);
 		PreviewMesh->SetVisibility(false);
 		PreviewActor->SetRootComponent(PreviewMesh);
 	}
+	GameState = Cast<AGameStateBilpakk>(UGameplayStatics::GetGameState(GetWorld()));
+	
 }
 
 
@@ -44,7 +47,7 @@ void APlayfieldContainer::Setup() const
 	TArray<EPackageType> Colors;
 	// TODO do we need row name?
 	// LevelDataRowName = FName(Data.LevelName.ToString());
-	FColorLibrary().Colors.GetKeys(Colors); 
+	FColorLibrary().Colors.GetKeys(Colors);
 	Grid->Setup(Data.GridParameters, FTransform::Identity);
 	PointsCalculator->Setup(Colors, Grid, Data.Doors);
 }
@@ -52,34 +55,37 @@ void APlayfieldContainer::Setup() const
 bool APlayfieldContainer::PlacePackage(const AStackablePackage* ActivePackage)
 {
 	UStaticMeshComponent* NewPackage = StaticMeshPool->GetPooledActor();
-	if(!NewPackage || !PreviewMesh->IsVisible()) return false;
-	
-	//NewPackage->AttachToComponent(CarModel, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+	if (!NewPackage || !PreviewMesh->IsVisible()) return false;
+
+	NewPackage->AttachToComponent(CarModel, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 	NewPackage->SetStaticMesh(PreviewMesh->GetStaticMesh());
-	NewPackage->SetMaterial(0,ActivePackage->PackageParameters.Material);
+	NewPackage->SetMaterial(0, ActivePackage->PackageParameters.Material);
 	NewPackage->SetWorldLocationAndRotation(PreviewActor->GetActorLocation(), PreviewActor->GetActorRotation());
 	Grid->SetStatus(PreviewRange, ActivePackage->PackageParameters.Type);
 	int32 Bonus = PointsCalculator->CalculatePlacePackagePoints(PreviewRange, ActivePackage->PackageParameters.Type);
-	// GameState->AddBonusPoints(Bonus);
+	GameState->AddBonusPoints(Bonus);
 	Points = PointsCalculator->CalculateEndGamePoints();
 	Points.Diff += Bonus;
 	Points.Bonus = Bonus;
-	if(Points.Diff == abs(Points.Negative))
+	if (Points.Diff == abs(Points.Negative))
 	{
 		Points.Diff = 0;
 		Points.Negative = 0;
 	}
 	// TODO
-	// GameState->SetPoints(Points.Total);
-	FloatingTextWidget->SetWorldLocation(PreviewMesh->Bounds.Origin + FVector::UpVector * PreviewMesh->Bounds.BoxExtent.Z);
-	NegativeFloatingTextWidget->SetWorldLocation(PreviewMesh->Bounds.Origin + FVector::UpVector * PreviewMesh->Bounds.BoxExtent.Z);
-	
+	GameState->SetPoints(Points.Total);
+	FloatingTextWidget->SetWorldLocation(
+		PreviewMesh->Bounds.Origin + FVector::UpVector * PreviewMesh->Bounds.BoxExtent.Z);
+	NegativeFloatingTextWidget->SetWorldLocation(
+		PreviewMesh->Bounds.Origin + FVector::UpVector * PreviewMesh->Bounds.BoxExtent.Z);
+
 	// FRotator WidgetRotation = UKismetMathLibrary::FindLookAtRotation(FloatingTextWidget->GetComponentLocation(),GameState->StackingPawn->VRCamera->GetComponentLocation());
 	// WidgetRotation.Pitch = 0;
 	// FloatingTextWidget->SetWorldRotation(WidgetRotation);
 	// NegativeFloatingTextWidget->SetWorldRotation(WidgetRotation);
 	OnPointsAddedDelegate.Broadcast();
-	// UE_LOG(LogTemp, Warning, TEXT("Returned Points: %d, and %d negative points, %d bonus, %d diff, %d from gamestate"), Points.Total, Points.Negative, Points.Bonus, Points.Diff, ABilpakkGameState::GetPoints(GetWorld()));
+	ActivePackage->OnStackPackage();
+	UE_LOG(LogTemp, Warning, TEXT("Returned Points: %d, and %d negative points, %d bonus, %d diff, %d from gamestate"), Points.Total, Points.Negative, Points.Bonus, Points.Diff, AGameStateBilpakk::GetPoints(GetWorld()));
 	PreviewMesh->SetVisibility(false);
 	return true;
 	//TODO Disable collision
@@ -100,23 +106,22 @@ void APlayfieldContainer::StopUpdatingPreview()
 	bUpdatePreview = false;
 }
 
-bool APlayfieldContainer::UpdatePreview(const AStackablePackage* ActivePackage, FTransform &InOutPreviewTransform)
+bool APlayfieldContainer::UpdatePreview(const AStackablePackage* ActivePackage, FTransform& InOutPreviewTransform)
 {
 	FVector Min;
 	FVector Max;
 	PreviewMesh->GetLocalBounds(Min, Max);
 	Grid->CalculatePackageBounds(ActivePackage->GetTransform(), Min, Max, PreviewRange);
-	if(Grid->FindSpaceForPackage(ActivePackage->GetTransform() , PreviewRange, InOutPreviewTransform))
+	if (Grid->FindSpaceForPackage(ActivePackage->GetTransform(), PreviewRange, InOutPreviewTransform))
 	{
-		if(PreviewMovementThreshold < FVector::Distance(PreviewActor->GetActorLocation(), InOutPreviewTransform.GetLocation()))
+		if (PreviewMovementThreshold < FVector::Distance(PreviewActor->GetActorLocation(),
+		                                                 InOutPreviewTransform.GetLocation()))
 		{
 			PreviewActor->SetActorTransform(InOutPreviewTransform);
 		}
 		PreviewMesh->SetVisibility(true);
 		return true;
-	} 
+	}
 	PreviewMesh->SetVisibility(false);
 	return false;
 }
-
-

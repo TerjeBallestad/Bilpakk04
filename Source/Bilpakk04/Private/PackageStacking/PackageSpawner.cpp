@@ -73,8 +73,8 @@ AStackablePackage* APackageSpawner::GetNextPackage()
 		// GetWorldTimerManager().SetTimer(Handle, GameState, &ABilpakkGameState::FinishGame, 2, false);
 		return nullptr;
 	}
-	FTransform SpawnLocation = GetActorTransform() + PackageSpawnLocation;
-	SpawnLocation.SetRotation(GetActorRotation().Quaternion());	
+	FTransform SpawnLocation = GetActorTransform();
+	SpawnLocation.AddToTranslation(PackageSpawnLocation.GetLocation());
 	const FActorSpawnParameters PackageSpawnParameters;
 
 	AStackablePackage* Package = Cast<AStackablePackage>(PackagePool->Spawn(PackageClass, SpawnLocation, PackageSpawnParameters));
@@ -90,6 +90,7 @@ void APackageSpawner::RemoveFirstPackageFromQueue()
 	{
 		SpawnQueue.RemoveAt(0);
 	}
+	GetNextPackage();
 }
 
 void APackageSpawner::ShuffleArray(TArray<FPackageParameters>& Array) const
