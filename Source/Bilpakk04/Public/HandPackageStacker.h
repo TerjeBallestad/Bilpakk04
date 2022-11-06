@@ -8,6 +8,8 @@
 #include "HandController.h"
 #include "Components/SphereComponent.h"
 #include "Components/WidgetComponent.h"
+#include "PackageStacking/StackablePackage.h"
+#include "PackageStacking/PlayfieldContainer.h"
 #include "Sound/SoundCue.h"
 
 #include "HandPackageStacker.generated.h"
@@ -56,7 +58,7 @@ public:
 	virtual void GripReleased() override;
 	//virtual void TriggerPressed() override;
 	//virtual void TriggerReleased() override;
-	//class AStackablePackage* FindClosestPackageWithinRange();
+	AStackablePackage* FindClosestPackageWithinRange();
 	//void SetMapEnabled(bool Enabled);
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
@@ -68,17 +70,17 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void GripStateChanged(EGripState NewState);
 
-	//UFUNCTION(BlueprintCallable)
-	//void SetupMap();
+	// UFUNCTION(BlueprintCallable)
+	// void SetupMap();
 
-	//UPROPERTY(BlueprintReadOnly)
-	//AStackablePackage* PackageInGrip;
+	UPROPERTY(BlueprintReadOnly)
+	AStackablePackage* PackageInGrip;
 
-	//UPROPERTY(VisibleAnywhere)
-	//TArray<AStackablePackage*> GrippablePackages;
+	UPROPERTY(VisibleAnywhere)
+	TArray<AStackablePackage*> GrippablePackages;
 
-	//UPROPERTY(VisibleAnywhere)
-	//class APlayfieldContainer* GrippablePlayfield;
+	UPROPERTY(VisibleAnywhere)
+	APlayfieldContainer* GrippablePlayfield;
 
 	UFUNCTION()
 	void ActorBeginOverlap(AActor* OverlappedActor, AActor* OtherActor);
