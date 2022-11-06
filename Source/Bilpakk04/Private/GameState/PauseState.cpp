@@ -3,16 +3,21 @@
 
 #include "GameState/PauseState.h"
 
+#include "PackageStacking/PackageSpawner.h"
+
 void UPauseState::OnEnterState(AActor* StateOwner)
 {
 	Super::OnEnterState(StateOwner);
-	
+	GameState->PackageSpawner->SetActorHiddenInGame(true);
+	GameState->PlayfieldContainer->SetActorHiddenInGame(true);
 	Pawn->SetControllerModeUI();
 }
 
 void UPauseState::OnExitState()
 {
 	Super::OnExitState();
+	GameState->PackageSpawner->SetActorHiddenInGame(false);
+	GameState->PlayfieldContainer->SetActorHiddenInGame(false);
 }
 
 void UPauseState::PressPause()

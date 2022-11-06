@@ -65,14 +65,23 @@ void APackageSpawner::Setup()
 
 int32 APackageSpawner::GetRemainingPackageAmount(UObject* WorldContextObject)
 {
-	return 32;
+	if (!GEngine && !WorldContextObject) return -1;
+
+	const AGameStateBilpakk* State = Cast<AGameStateBilpakk>(GEngine->
+	                                                         GetWorldFromContextObjectChecked(WorldContextObject)->
+	                                                         GetAuthGameMode()->
+	                                                         GameState);
+	if (State)
+		return State->PackageSpawner->SpawnQueue.Num();
+
+	return -1;
 }
 
 void APackageSpawner::SpawnNextPackageWithDelay()
 {
 	// if package is spawned immediately, the released/stacked delegates will be cleared right after they are set.
 	FTimerHandle Handle;
-	GetWorld ()->GetTimerManager().SetTimer(Handle, this, &APackageSpawner::SpawnNextPackage, 0.3, false);
+	GetWorld()->GetTimerManager().SetTimer(Handle, this, &APackageSpawner::SpawnNextPackage, 0.3, false);
 }
 
 void APackageSpawner::SpawnNextPackage()
@@ -92,7 +101,8 @@ AStackablePackage* APackageSpawner::GetNextPackage()
 	SpawnLocation.AddToTranslation(PackageSpawnLocation.GetLocation());
 	const FActorSpawnParameters PackageSpawnParameters;
 
-	AStackablePackage* Package = Cast<AStackablePackage>(PackagePool->Spawn(PackageClass, SpawnLocation, PackageSpawnParameters));
+	AStackablePackage* Package = Cast<AStackablePackage>(
+		PackagePool->Spawn(PackageClass, SpawnLocation, PackageSpawnParameters));
 	Package->Setup(SpawnQueue[0]);
 	Package->GetPackageStackedDelegate()->AddUObject(this, &APackageSpawner::RemoveFirstPackageFromQueue);
 	Package->GetPackageReleasedDelegate()->AddUObject(this, &APackageSpawner::SpawnNextPackageWithDelay);
@@ -102,7 +112,7 @@ AStackablePackage* APackageSpawner::GetNextPackage()
 
 void APackageSpawner::RemoveFirstPackageFromQueue()
 {
-	if(SpawnQueue.Num() > 0)
+	if (SpawnQueue.Num() > 0)
 	{
 		SpawnQueue.RemoveAt(0);
 	}
