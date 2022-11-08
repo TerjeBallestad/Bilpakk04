@@ -25,6 +25,17 @@ FBilpakkLevelData AGameStateBilpakk::GetLevelData(const UObject* WorldContextObj
 	
 	return FBilpakkLevelData();
 }
+// UBilpakkVehicleData* AGameStateBilpakk::GetVehicleData(const UObject* WorldContextObject)
+// {
+// 	if((!GEngine) && (!WorldContextObject)) return NewObject<UBilpakkVehicleData>();
+//
+// 	AGameStateBilpakk* State = Cast<AGameStateBilpakk>(GEngine->
+// 		GetWorldFromContextObjectChecked(WorldContextObject)->GetAuthGameMode()->GameState);
+// 	if(State)
+// 		return State->VehicleData;
+// 	
+// 	return NewObject<UBilpakkVehicleData>();
+// }
 
 int32 AGameStateBilpakk::GetPoints(const UObject* WorldContextObject)
 {

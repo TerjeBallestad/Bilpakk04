@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "BilpakkLevelData.h"
+#include "Data/BilpakkLevelData.h"
 #include "StackablePackage.h"
 #include "GameFramework/Actor.h"
 #include "GenericActorPool/GenericActorPoolComponent.h"

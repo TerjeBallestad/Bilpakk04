@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "BilpakkLevelData.h"
+#include "Data/BilpakkLevelData.h"
 #include "Components/ActorComponent.h"
 #include "PackageGrid.generated.h"
 

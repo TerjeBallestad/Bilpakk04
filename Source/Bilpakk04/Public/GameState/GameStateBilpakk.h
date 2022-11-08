@@ -3,7 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "BilpakkLevelData.h"
+#include "Data/BilpakkLevelData.h"
+#include "Data/BilpakkVehicleData.h"
 #include "StateMachine/StateManager.h"
 #include "GameFramework/GameStateBase.h"
 #include "GameStateBilpakk.generated.h"
@@ -24,6 +25,12 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	UDataTable* LevelDataTable;
+
+	UPROPERTY(EditAnywhere)
+	UBilpakkVehicleData* VehicleData = nullptr;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UBilpakkVehicleData> VehicleDataClass;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FString RowName;
@@ -36,7 +43,10 @@ public:
 
 	UFUNCTION(BlueprintPure, meta = (WorldContext = "WorldContextObject"))
 	static FBilpakkLevelData GetLevelData(const UObject* WorldContextObject);
-	
+
+	// UFUNCTION(BlueprintPure, meta = (WorldContext = "WorldContextObject"))
+	// UBilpakkVehicleData* GetVehicleData(const UObject* WorldContextObject);
+
 	// Points
 	UFUNCTION(BlueprintPure, meta = (WorldContext = "WorldContextObject"))
 	static int32 GetPoints(const UObject* WorldContextObject);

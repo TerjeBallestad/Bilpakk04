@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "ActorPoolComponent.h"
-#include "BilpakkLevelData.h"
+#include "Data/BilpakkLevelData.h"
 #include "PackageGrid.h"
 #include "PackagePointsCalculator.h"
 #include "StackablePackage.h"
